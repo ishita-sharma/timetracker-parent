@@ -1,26 +1,26 @@
-package de.ishitasharma.timtracker.model;
+package de.ishitasharma.timetracker.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
+@JsonAutoDetect(fieldVisibility = Visibility.ANY, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE)
 public class Health {
 
 //	jackson pojo json response rest
 	
 	@JsonProperty("STATUS")
-	private String status;
+	private String mStatus;
 	@JsonProperty("MESSAGE")
-	private String message;
+	private String mMessage;
 	
-	public Health(){
-		
-	}
+	public Health(){}
 	
 	public Health(String message, String status){
-		this.message=message;
-		this.status=status;
+		mMessage=message;
+		mStatus=status;
 	}
 	
 	@Override
@@ -36,18 +36,18 @@ public class Health {
 	//getter and setter
 	
 	public void setStatus(String status){
-		this.status = status;
+		mStatus = status;
 	}
 	
 	public String getStatus(){
-		return status;
+		return mStatus;
 	}
 	
 	public void setMessage(String msg){
-		message = msg;
+		mMessage = msg;
 	}
 	
 	public String getMessage(){
-		return message;
+		return mMessage;
 	}
 }
