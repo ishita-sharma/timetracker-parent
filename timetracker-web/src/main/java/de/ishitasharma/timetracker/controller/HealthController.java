@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import de.ishitasharma.timetracker.model.Health;
+import de.ishitasharma.timtracker.model.Health;
+
+
 
 @Controller
 @RequestMapping("/health")

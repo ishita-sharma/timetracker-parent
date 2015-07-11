@@ -1,4 +1,4 @@
-package de.ishitasharma.timetracker.model;
+package de.ishitasharma.timtracker.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
