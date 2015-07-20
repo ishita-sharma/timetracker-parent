@@ -8,10 +8,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class Tracker {
+public class Tracker implements Comparable<Object>{
 	
 	@JsonProperty("Message")
 	private String mMessage;
+	@JsonProperty("UserId")
+	private int mUserId;
 	@JsonProperty("Start Time")
 	private long mStartTime;
 	@JsonProperty("TrackingId")
@@ -25,8 +27,9 @@ public class Tracker {
 	
 	public Tracker(){}
 	
-	public Tracker(String message) {
+	public Tracker(String message,String userName) {
 		mMessage = message;
+		mUserId = userName.hashCode();
 		mStartTime = new DateTime().getMillis();
 		mTrackingId = UUID.randomUUID().toString();
 		mStatus = "Start";
@@ -35,6 +38,7 @@ public class Tracker {
 		if(mStatus.equalsIgnoreCase("Start")){
 			mStatus = "Started";
 		}
+		
 	}
 	public void stop(){
 		if((mStatus.equalsIgnoreCase("Started"))||(mStatus.equalsIgnoreCase("Start"))){
@@ -97,5 +101,19 @@ public class Tracker {
 
 	public void setmStatus(String status) {
 		mStatus = status;
+	}
+
+	public int getmUserId() {
+		return mUserId;
+	}
+
+	public void setmUserId(int userId) {
+		mUserId = userId;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		return 1;
 	}
 }
