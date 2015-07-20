@@ -1,3 +1,3 @@
 # timetracker-parent
 
-Maven module web service 
+Restful Web Service for time tracking
