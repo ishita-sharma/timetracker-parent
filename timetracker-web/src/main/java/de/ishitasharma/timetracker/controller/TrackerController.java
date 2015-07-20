@@ -23,7 +23,7 @@ public class TrackerController {
 	public String startTrack(
 			@RequestParam(value = "message", defaultValue = "ok") String message) {
 		Tracker tracker = new Tracker(message);
-		trackingInfo.put(tracker.getTrackingId(), tracker);
+		trackingInfo.put(tracker.getmTrackingId(), tracker);
 		return tracker.toString();
 	}
 	

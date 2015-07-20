@@ -40,7 +40,7 @@ public class Tracker {
 		}
 	}
 	public void stop(){
-		if(mStatus.equalsIgnoreCase("Started")){
+		if((mStatus.equalsIgnoreCase("Started"))||(mStatus.equalsIgnoreCase("Start"))){
 			mElapsedTime = (new DateTime().getMillis())- mStartTime;
 			mStatus = "Stop";
 		}
@@ -59,46 +59,46 @@ public class Tracker {
 	
 	//getter and setter
 	
-	public void setMessage(String message){
+	public void setmMessage(String message){
 		mMessage = message;
 	}
 	
-	public String getMessage(){
+	public String getmMessage(){
 		return mMessage;
 	}
 	
-	public void setStartTime(long currentTime){
+	public void setmStartTime(long currentTime){
 		mStartTime = currentTime;
 	}
 	
-	public long getStartTime(){
+	public long getmStartTime(){
 		return mStartTime;
 	}
 	
-	public void setTrackingId(String trackerId){
+	public void setmTrackingId(String trackerId){
 		mTrackingId = trackerId;
 	}
 	
-	public String getTrackingId(){
+	public String getmTrackingId(){
 		return mTrackingId;
 	}
 	
-	public void setElapsedTime(long elapsedTime){
+	public void setmElapsedTime(long elapsedTime){
 		mElapsedTime = elapsedTime;
 	}
 	
-	public long getElapsedTime(){
+	public long getmElapsedTime(){
 		if(mElapsedTime == 0 && mStatus.equalsIgnoreCase("Started")){
 			return (new DateTime().getMillis())- mStartTime;
 		}
 		return mElapsedTime;
 	}
 
-	public String getStatus() {
+	public String getmStatus() {
 		return mStatus;
 	}
 
-	public void setStatus(String status) {
+	public void setmStatus(String status) {
 		mStatus = status;
 	}
 }
