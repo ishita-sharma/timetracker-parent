@@ -1,9 +1,7 @@
 package de.ishitasharma.timetracker.controller;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.UUID;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -24,16 +22,24 @@ public class TrackerController {
 	@ResponseBody
 	public String startTrack(
 			@RequestParam(value = "message", defaultValue = "ok") String message) {
-		Tracker tracker = new Tracker(message, LocalDateTime.now().toString(),
-				UUID.randomUUID().toString());
+		Tracker tracker = new Tracker(message);
 		trackingInfo.put(tracker.getTrackingId(), tracker);
 		return tracker.toString();
 	}
-
+	
+	@RequestMapping(value = "/status", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public String status(@RequestParam(required = true) String trackingId) {
+		Tracker tracker = trackingInfo.get(trackingId);
+		tracker.status();
+		return tracker.toString();
+	}
+	
 	@RequestMapping(value = "/stop", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public String stopTrack(@RequestParam(required = true) String trackingId) {
-		
-		return trackingInfo.get(trackingId).toString();
+		Tracker tracker = trackingInfo.get(trackingId);
+		tracker.stop();
+		return tracker.toString();
 	}
 }

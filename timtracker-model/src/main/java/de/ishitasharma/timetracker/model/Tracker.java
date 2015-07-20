@@ -1,7 +1,8 @@
 package de.ishitasharma.timetracker.model;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
+
+import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
@@ -9,31 +10,43 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@JsonAutoDetect(fieldVisibility = Visibility.ANY, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE)
+//@JsonAutoDetect(fieldVisibility = Visibility.ANY, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE)
 public class Tracker {
 	
 	@JsonProperty("Message")
 	private String mMessage;
-	@JsonProperty("Starting Time")
-	private String mCurrentTime;
+	@JsonProperty("Start Time")
+	private long mStartTime;
 	@JsonProperty("TrackingId")
 	private String mTrackingId;
+	@JsonProperty("Elapsed Time")
+	private long mElapsedTime;
+	//TODO create enum
+	@JsonProperty("Status")
+	private String mStatus;
 	
 	
 	public Tracker(){}
 	
-	public Tracker(String mTrackingId) {
-		super();
-		this.mTrackingId = mTrackingId;
+	public Tracker(String message) {
+		mMessage = message;
+		mStartTime = new DateTime().getMillis();
+		mTrackingId = UUID.randomUUID().toString();
+		mStatus = "Start";
+	}
+	public void status(){
+		if(mStatus.equalsIgnoreCase("Start")){
+			mStatus = "Started";
+		}
+	}
+	public void stop(){
+		if(mStatus.equalsIgnoreCase("Started")){
+			mElapsedTime = (new DateTime().getMillis())- mStartTime;
+			mStatus = "Stop";
+		}
+		//TODO else error handling
 	}
 	
-	public Tracker(String mMessage, String mCurrentTime, String mTrackerId) {
-		super();
-		this.mMessage = mMessage;
-		this.mCurrentTime = mCurrentTime;
-		this.mTrackingId = mTrackerId;
-	}
-
 	@Override
 	public String toString(){
 		ObjectMapper mapper = new ObjectMapper();
@@ -54,12 +67,12 @@ public class Tracker {
 		return mMessage;
 	}
 	
-	public void setCurrentTime(String currentTime){
-		mCurrentTime = currentTime;
+	public void setStartTime(long currentTime){
+		mStartTime = currentTime;
 	}
 	
-	public String getCurrentTime(){
-		return mCurrentTime;
+	public long getStartTime(){
+		return mStartTime;
 	}
 	
 	public void setTrackingId(String trackerId){
@@ -68,5 +81,24 @@ public class Tracker {
 	
 	public String getTrackingId(){
 		return mTrackingId;
+	}
+	
+	public void setElapsedTime(long elapsedTime){
+		mElapsedTime = elapsedTime;
+	}
+	
+	public long getElapsedTime(){
+		if(mElapsedTime == 0 && mStatus.equalsIgnoreCase("Started")){
+			return (new DateTime().getMillis())- mStartTime;
+		}
+		return mElapsedTime;
+	}
+
+	public String getStatus() {
+		return mStatus;
+	}
+
+	public void setStatus(String status) {
+		mStatus = status;
 	}
 }
