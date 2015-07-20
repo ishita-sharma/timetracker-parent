@@ -89,7 +89,8 @@ public class Tracker implements Comparable<Object>{
 	}
 	
 	public long getmElapsedTime(){
-		if(mElapsedTime == 0 && mStatus.equalsIgnoreCase("Started")){
+//		if(mElapsedTime == 0 && mStatus.equalsIgnoreCase("Started")){
+		if(mElapsedTime == 0){ 
 			return (new DateTime().getMillis())- mStartTime;
 		}
 		return mElapsedTime;
