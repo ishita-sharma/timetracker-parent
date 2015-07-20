@@ -10,7 +10,7 @@
 	<name>time tracking application</name>
 	<modules>
 		<module>timetracker-web</module>
-		<module>timetracker-db</module>
+<!-- 		<module>timetracker-db</module> -->
 		<module>timtracker-model</module>
 	</modules>
 
