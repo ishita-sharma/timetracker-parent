@@ -9,9 +9,9 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<groupId>de.ishitasharma.timetracker</groupId>
-	<artifactId>timetracker-model</artifactId>
+	<artifactId>timetracker-service</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>timetracker-model</name>
+	<name>timetracker-service</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,14 +23,9 @@
 			<!-- <version>3.8.1</version> -->
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<!-- <version>2.8.1</version> -->
+				<dependency>
+			<groupId>de.ishitasharma.timetracker</groupId>
+			<artifactId>timetracker-storage</artifactId>
 		</dependency>
 	</dependencies>
 </project>

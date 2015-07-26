@@ -1,11 +1,7 @@
 package de.ishitasharma.timetracker.controller;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.TreeSet;
+
+import javax.inject.Inject;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -15,51 +11,47 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import de.ishitasharma.timetracker.model.Tracker;
+import de.ishitasharma.timetracker.service.ITrackerService;
 
 @Controller
 @RequestMapping("/track")
 public class TrackerController {
 
-	private Map<String, Tracker> trackingInfo = new TreeMap<String, Tracker>();
-	private Map<Integer, TreeSet<Object>> userInfo = new TreeMap<Integer, TreeSet<Object>>();
-	TreeSet<Object> ts = new TreeSet<Object>();
+	@Inject
+	private ITrackerService trackerService;
+
+	@RequestMapping(value = "/create/customer", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public String createCustomer(
+			@RequestParam(value = "customerName", required = true) String customerName) {
+		return trackerService.createCustomer(customerName);
+	}
 
 	@RequestMapping(value = "/start", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public String startTrack(
-			@RequestParam(value = "message", defaultValue = "ok") String message,@RequestParam(value = "userName",required = true)String userName) {
-		Tracker tracker = new Tracker(message,userName);
-		ts.add(tracker);
-		userInfo.put(userName.hashCode(), ts);
-		trackingInfo.put(tracker.getmTrackingId(), tracker);
-		return tracker.toString();
+			@RequestParam(value = "message", defaultValue = "ok") String message,
+			@RequestParam(value = "userName", required = true) String userName,
+			@RequestParam(value = "customerName", required = true) String customerName) {
+		return trackerService.startTrack(message, userName, customerName);
 	}
-	
+
 	@RequestMapping(value = "/status", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public String status(@RequestParam(required = true) String trackingId) {
-		Tracker tracker = trackingInfo.get(trackingId);
-		tracker.status();
-		return tracker.toString();
+		return trackerService.status(trackingId);
 	}
-	
-	@RequestMapping(value = "/user/history", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
+
+	@RequestMapping(value = "/user/history", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public String userHistory(@RequestParam(required = true)String userName) {
-		TreeSet ts = userInfo.get(userName.hashCode());
-		List<String> result = new ArrayList<String>();
-		for (Iterator<Tracker> iterator = ts.iterator(); iterator.hasNext();) {
-			Tracker object = (Tracker) iterator.next();
-			result.add(object.toString());
-		}
-		return result.toString();
+	public String userHistory(@RequestParam(required = true) String userName,
+			@RequestParam(required = true) String customerName) {
+		return trackerService.userHistory(userName, customerName);
 	}
-	
+
 	@RequestMapping(value = "/stop", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public String stopTrack(@RequestParam(required = true) String trackingId) {
-		Tracker tracker = trackingInfo.get(trackingId);
-		tracker.stop();
-		return tracker.toString();
+		return trackerService.stopTrack(trackingId);
 	}
 }

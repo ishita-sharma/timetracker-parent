@@ -38,7 +38,6 @@ public class Tracker implements Comparable<Object>{
 		if(mStatus.equalsIgnoreCase("Start")){
 			mStatus = "Started";
 		}
-		
 	}
 	public void stop(){
 		if((mStatus.equalsIgnoreCase("Started"))||(mStatus.equalsIgnoreCase("Start"))){

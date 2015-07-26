@@ -9,9 +9,9 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<groupId>de.ishitasharma.timetracker</groupId>
-	<artifactId>timetracker-model</artifactId>
+	<artifactId>timetracker-storage</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>timetracker-model</name>
+	<name>timetracker-storage</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,13 +24,25 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
+			<groupId>de.ishitasharma.timetracker</groupId>
+			<artifactId>timetracker-model</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<!-- <version>2.8.1</version> -->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<!-- <version>4.1.7.RELEASE</version> -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<!-- <version>4.1.7.RELEASE</version> -->
+		</dependency>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<!-- <version>1</version> -->
 		</dependency>
 	</dependencies>
 </project>

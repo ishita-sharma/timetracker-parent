@@ -61,14 +61,11 @@
 
 		<dependency>
 			<groupId>de.ishitasharma.timetracker</groupId>
-			<artifactId>timtracker-model</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<artifactId>timetracker-model</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>de.ishitasharma.timetracker</groupId>
-			<artifactId>timtracker-model</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<artifactId>timetracker-service</artifactId>
 		</dependency>
 
 	</dependencies>
