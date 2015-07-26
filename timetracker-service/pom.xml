@@ -23,9 +23,13 @@
 			<!-- <version>3.8.1</version> -->
 			<scope>test</scope>
 		</dependency>
-				<dependency>
+		<dependency>
 			<groupId>de.ishitasharma.timetracker</groupId>
 			<artifactId>timetracker-storage</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.ishitasharma.timetracker</groupId>
+			<artifactId>timetracker-model</artifactId>
 		</dependency>
 	</dependencies>
 </project>

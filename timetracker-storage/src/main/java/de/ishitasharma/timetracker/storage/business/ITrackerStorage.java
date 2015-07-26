@@ -1,15 +1,19 @@
 package de.ishitasharma.timetracker.storage.business;
 
+import java.util.List;
+
+import de.ishitasharma.timetracker.model.Tracker;
+
 public interface ITrackerStorage {
 
 	String createCustomer(String customerName);
 
-	String stopTrack(String trackingId);
+	Tracker stopTrack(String trackingId);
 
-	String userHistory(String userName, String customerName);
+	List<Tracker> userHistory(String userName, String customerName);
 
-	String status(String trackingId);
+	Tracker status(String trackingId);
 
-	String startTrack(String message, String userName, String customerName);
+	Tracker startTrack(String message, String userName, String customerName);
 
 }

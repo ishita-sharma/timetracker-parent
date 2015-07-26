@@ -33,25 +33,25 @@ public class TrackerController {
 			@RequestParam(value = "message", defaultValue = "ok") String message,
 			@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "customerName", required = true) String customerName) {
-		return trackerService.startTrack(message, userName, customerName);
+		return trackerService.startTrack(message, userName, customerName).toString();
 	}
 
 	@RequestMapping(value = "/status", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public String status(@RequestParam(required = true) String trackingId) {
-		return trackerService.status(trackingId);
+		return trackerService.status(trackingId).toString();
 	}
 
 	@RequestMapping(value = "/user/history", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public String userHistory(@RequestParam(required = true) String userName,
 			@RequestParam(required = true) String customerName) {
-		return trackerService.userHistory(userName, customerName);
+		return trackerService.userHistory(userName, customerName).toString();
 	}
 
 	@RequestMapping(value = "/stop", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public String stopTrack(@RequestParam(required = true) String trackingId) {
-		return trackerService.stopTrack(trackingId);
+		return trackerService.stopTrack(trackingId).toString();
 	}
 }

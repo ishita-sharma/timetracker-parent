@@ -28,11 +28,11 @@ public class MapStorageImpl implements ITrackerStorage {
 	public String createCustomer(String customerName) {
 		customerInfo.put(customerName.hashCode(),
 				new TreeMap<Integer, TreeSet<Object>>());
-		return "{\"status\":\"success\"}";
+		return "success";
 	}
 
 	@Override
-	public String startTrack(String message, String userName,
+	public Tracker startTrack(String message, String userName,
 			String customerName) {
 		Tracker tracker = new Tracker(message, userName);
 
@@ -44,33 +44,33 @@ public class MapStorageImpl implements ITrackerStorage {
 		// ts.add(tracker);
 		// customerInfo.put(customerName.hashCode(), userInfo);
 		trackingInfo.put(tracker.getmTrackingId(), tracker);
-		return tracker.toString();
+		return tracker;
 	}
 
 	@Override
-	public String status(String trackingId) {
+	public Tracker status(String trackingId) {
 		Tracker tracker = trackingInfo.get(trackingId);
 		tracker.status();
-		return tracker.toString();
+		return tracker;
 	}
 
 	@Override
-	public String userHistory(String userName, String customerName) {
+	public List<Tracker> userHistory(String userName, String customerName) {
 		TreeMap<Integer, TreeSet<Object>> tm = (TreeMap<Integer, TreeSet<Object>>) customerInfo
 				.get(customerName.hashCode());
 		TreeSet ts = tm.get(userName.hashCode());
-		List<String> result = new ArrayList<String>();
+		List<Tracker> result = new ArrayList<Tracker>();
 		for (Iterator<Tracker> iterator = ts.iterator(); iterator.hasNext();) {
 			Tracker object = (Tracker) iterator.next();
-			result.add(object.toString());
+			result.add(object);
 		}
-		return result.toString();
+		return result;
 	}
 
 	@Override
-	public String stopTrack(String trackingId) {
+	public Tracker stopTrack(String trackingId) {
 		Tracker tracker = trackingInfo.get(trackingId);
 		tracker.stop();
-		return tracker.toString();
+		return tracker;
 	}
 }

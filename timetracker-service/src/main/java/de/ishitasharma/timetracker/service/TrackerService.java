@@ -1,10 +1,13 @@
 package de.ishitasharma.timetracker.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import de.ishitasharma.timetracker.model.Tracker;
 import de.ishitasharma.timetracker.storage.business.ITrackerStorage;
 
 @Component
@@ -20,23 +23,23 @@ public class TrackerService implements ITrackerService{
 	}
 
 	@Override
-	public String startTrack(String message, String userName,
+	public Tracker startTrack(String message, String userName,
 			String customerName) {
 		return trackerStorage.startTrack(message, userName, customerName);
 	}
 
 	@Override
-	public String status(String trackingId) {
+	public Tracker status(String trackingId) {
 		return trackerStorage.status(trackingId);
 	}
 
 	@Override
-	public String userHistory(String userName, String customerName) {
+	public List<Tracker> userHistory(String userName, String customerName) {
 		return trackerStorage.userHistory(userName, customerName);
 	}
 
 	@Override
-	public String stopTrack(String trackingId) {
+	public Tracker stopTrack(String trackingId) {
 		return trackerStorage.stopTrack(trackingId);
 	}
 }
