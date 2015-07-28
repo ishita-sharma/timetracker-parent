@@ -5,9 +5,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/spring"/>
-        <dependent-module archiveName="timetracker-model-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/timetracker-model/timetracker-model">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="timetracker-service-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/timetracker-service/timetracker-service">
             <dependency-type>uses</dependency-type>
         </dependent-module>
