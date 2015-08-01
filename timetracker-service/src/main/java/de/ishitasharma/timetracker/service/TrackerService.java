@@ -13,8 +13,9 @@ import de.ishitasharma.timetracker.storage.business.ITrackerStorage;
 @Component
 public class TrackerService implements ITrackerService{
 	
-	@Inject
-	@Qualifier("tracker-map-storage")
+	@Inject			//Ask how to use constructor then? Which constructor will spring use? Will a new object be created everytime 
+					// this class's method is called
+	@Qualifier("tracker-sqlite-storage")
 	private ITrackerStorage trackerStorage;
 	
 	@Override
@@ -22,6 +23,11 @@ public class TrackerService implements ITrackerService{
 		return trackerStorage.createCustomer(customerName);
 	}
 
+	@Override
+	public String createUser(String userName, String customerName){
+		return trackerStorage.createUser(userName, customerName);
+	}
+	
 	@Override
 	public Tracker startTrack(String message, String userName,
 			String customerName) {

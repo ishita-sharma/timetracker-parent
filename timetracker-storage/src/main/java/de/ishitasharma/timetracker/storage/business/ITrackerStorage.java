@@ -16,4 +16,6 @@ public interface ITrackerStorage {
 
 	Tracker startTrack(String message, String userName, String customerName);
 
+	String createUser(String userName, String customerName);
+
 }

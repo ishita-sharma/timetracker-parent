@@ -12,8 +12,8 @@ public class Tracker implements Comparable<Object>{
 	
 	@JsonProperty("Message")
 	private String mMessage;
-	@JsonProperty("UserId")
-	private int mUserId;
+	@JsonProperty("UserName")
+	private String mUserName;
 	@JsonProperty("Start Time")
 	private long mStartTime;
 	@JsonProperty("TrackingId")
@@ -29,11 +29,22 @@ public class Tracker implements Comparable<Object>{
 	
 	public Tracker(String message,String userName) {
 		mMessage = message;
-		mUserId = userName.hashCode();
+		mUserName = userName;
 		mStartTime = new DateTime().getMillis();
 		mTrackingId = UUID.randomUUID().toString();
 		mStatus = "Start";
 	}
+	
+	public Tracker(String mTrackingId, long mStartTime, String mUserName, String mStatus, String mMessage, long mElapsedTime){
+		super();
+		this.mMessage = mMessage;
+		this.mUserName = mUserName;
+		this.mStartTime = mStartTime;
+		this.mTrackingId = mTrackingId;
+		this.mElapsedTime = mElapsedTime;
+		this.mStatus = mStatus;
+	}
+	
 	public void status(){
 		if(mStatus.equalsIgnoreCase("Start")){
 			mStatus = "Started";
@@ -88,7 +99,6 @@ public class Tracker implements Comparable<Object>{
 	}
 	
 	public long getmElapsedTime(){
-//		if(mElapsedTime == 0 && mStatus.equalsIgnoreCase("Started")){
 		if(mElapsedTime == 0){ 
 			return (new DateTime().getMillis())- mStartTime;
 		}
@@ -103,12 +113,12 @@ public class Tracker implements Comparable<Object>{
 		mStatus = status;
 	}
 
-	public int getmUserId() {
-		return mUserId;
+	public String getmUserName() {
+		return mUserName;
 	}
 
-	public void setmUserId(int userId) {
-		mUserId = userId;
+	public void setmUserName(String userName) {
+		mUserName = userName;
 	}
 
 	@Override

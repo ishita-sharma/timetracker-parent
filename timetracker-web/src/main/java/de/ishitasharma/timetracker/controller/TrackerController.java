@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import de.ishitasharma.timetracker.model.Tracker;
 import de.ishitasharma.timetracker.service.ITrackerService;
 
 @Controller
@@ -18,13 +17,21 @@ import de.ishitasharma.timetracker.service.ITrackerService;
 public class TrackerController {
 
 	@Inject
-	private ITrackerService trackerService;
+	private ITrackerService trackerService;  //how many times a new object of this class be created? 
+											 //every time a request is sent?
 
 	@RequestMapping(value = "/create/customer", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public String createCustomer(
 			@RequestParam(value = "customerName", required = true) String customerName) {
 		return trackerService.createCustomer(customerName);
+	}
+	
+	@RequestMapping(value = "/create/user", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public String createUser(
+			@RequestParam(value = "customerName", required = true) String customerName,@RequestParam(value = "userName", required = true) String userName) {
+		return trackerService.createUser(userName,customerName);
 	}
 
 	@RequestMapping(value = "/start", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })

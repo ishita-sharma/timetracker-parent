@@ -3,6 +3,7 @@ package de.ishitasharma.timetracker.storage.impl;
 import javax.inject.Named;
 
 import org.springframework.stereotype.Component;
+
 import de.ishitasharma.timetracker.storage.business.ITrackerStorage;
 import de.ishitasharma.timetracker.model.Tracker;
 
@@ -32,18 +33,21 @@ public class MapStorageImpl implements ITrackerStorage {
 	}
 
 	@Override
+	public String createUser(String userName, String customerName) {
+		customerInfo.get(customerName.hashCode()).put(userName.hashCode(),
+				ts);		
+		return "success";
+	}
+	
+	@Override
 	public Tracker startTrack(String message, String userName,
 			String customerName) {
 		Tracker tracker = new Tracker(message, userName);
-
-//		ts.add(tracker);
-		customerInfo.get(customerName.hashCode()).put(userName.hashCode(),
-				ts);
+		tracker.setmElapsedTime(0);
 		customerInfo.get(customerName.hashCode()).get(userName.hashCode())
 				.add(tracker);
-		// ts.add(tracker);
-		// customerInfo.put(customerName.hashCode(), userInfo);
 		trackingInfo.put(tracker.getmTrackingId(), tracker);
+		
 		return tracker;
 	}
 
@@ -73,4 +77,5 @@ public class MapStorageImpl implements ITrackerStorage {
 		tracker.stop();
 		return tracker;
 	}
+
 }

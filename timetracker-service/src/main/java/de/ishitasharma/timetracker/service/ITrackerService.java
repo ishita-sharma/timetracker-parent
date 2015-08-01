@@ -16,4 +16,6 @@ public interface ITrackerService {
 
 	Tracker stopTrack(String trackingId);
 
+	String createUser(String userName, String customerName);
+
 }
