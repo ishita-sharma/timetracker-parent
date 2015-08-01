@@ -73,8 +73,8 @@ public class MapStorageImpl implements ITrackerStorage {
 
 	@Override
 	public Tracker stopTrack(String trackingId) {
-		Tracker tracker = trackingInfo.get(trackingId);
-		tracker.stop();
+		Tracker tracker = trackingInfo.get(trackingId);//get model
+		tracker.stop();//update model and persist
 		return tracker;
 	}
 

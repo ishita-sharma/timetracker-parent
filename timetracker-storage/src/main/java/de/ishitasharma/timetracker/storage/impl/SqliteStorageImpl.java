@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -42,16 +44,25 @@ public class SqliteStorageImpl implements ITrackerStorage, InitializingBean {
 		 * Setting the queries
 		 */
 		queries.put("insertCustomer",
-				"INSERT INTO tt_customer(name) VALUES(:CUSTOMER_NAME)");
+				"INSERT INTO tt_customer(name) "
+				+ "VALUES(:CUSTOMER_NAME)");
+		
 		queries.put(
 				"insertUser",
-				"INSERT INTO tt_user(customer_id,user_name) SELECT customer_id,:USER_NAME FROM tt_customer WHERE name=:CUSTOMER_NAME");
+				"INSERT INTO tt_user(customer_id,user_name) "
+				+ "SELECT customer_id,:USER_NAME "
+				+ "FROM tt_customer "
+				+ "WHERE name=:CUSTOMER_NAME");
+		
 		queries.put(
 				"startTrack",
 				"INSERT INTO tt_tracker(tracker_id,tracker_starttime,customer_id,user_id,tracker_status,tracker_message,tracker_elapsedtime) "
 				+ "SELECT :TRACKER_ID,:TRACKER_STARTTIME,user.customer_id,user.user_id,:TRACKER_STATUS,:TRACKER_MESSAGE,:TRACKER_ELAPSEDTIME "
 				+ "FROM tt_user user, tt_customer customer "
-				+ "WHERE user.customer_id = customer.customer_id AND user.user_name = :USER_NAME AND customer.name = :CUSTOMER_NAME");
+				+ "WHERE user.customer_id = customer.customer_id "
+				+ "AND user.user_name = :USER_NAME "
+				+ "AND customer.name = :CUSTOMER_NAME");
+		
 		queries.put("selectStatus", 
 				"SELECT tracker.tracker_id, tracker.tracker_starttime, tracker.tracker_status, tracker.tracker_message, tracker.tracker_elapsedtime, user.user_name,customer.name"
 				+ " FROM tt_tracker tracker, tt_user user, tt_customer customer " 
@@ -60,6 +71,25 @@ public class SqliteStorageImpl implements ITrackerStorage, InitializingBean {
 				+ "AND tracker.customer_id=customer.customer_id "
 				+ "AND user.user_id=tracker.user_id "
 				+ "AND tracker_id = :TRACKER_ID");
+		
+		queries.put("userHistory", "SELECT tracker.tracker_id, tracker.tracker_starttime, tracker.tracker_status, tracker.tracker_message, tracker.tracker_elapsedtime, user.user_name,customer.name"
+				+ " FROM tt_tracker tracker, tt_user user, tt_customer customer " 
+				+ "WHERE "
+				+ "user.customer_id=customer.customer_id "
+				+ "AND tracker.customer_id=customer.customer_id "
+				+ "AND user.user_id=tracker.user_id "
+				+ "AND user.user_name =:USER_NAME "
+				+ "AND customer.name =:CUSTOMER_NAME");
+		
+		queries.put("stopTrack-1", "SELECT tracker.tracker_id, tracker.tracker_starttime, tracker.tracker_status, tracker.tracker_message, tracker.tracker_elapsedtime, user.user_name,customer.name"
+				+ " FROM tt_tracker tracker, tt_user user, tt_customer customer " 
+				+ "WHERE "
+				+ "user.customer_id=customer.customer_id "
+				+ "AND tracker.customer_id=customer.customer_id "
+				+ "AND user.user_id=tracker.user_id "
+				+ "AND tracker_id = :TRACKER_ID");
+		
+		queries.put("stopTrack-2", "UPDATE tt_tracker SET tracker_elapsedTime=:ELAPSED_TIME, tracker_status='stopped' WHERE tracker_id=:TRACKER_ID");
 	}
 
 	@Override
@@ -83,14 +113,32 @@ public class SqliteStorageImpl implements ITrackerStorage, InitializingBean {
 
 	@Override
 	public Tracker stopTrack(String trackingId) {
-		// TODO Auto-generated method stub
-		return null;
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+		paramMap.addValue("TRACKER_ID", trackingId);
+
+		Map<String, Object> list =namedParameterJdbcTemplate.queryForMap(queries.get("stopTrack-1"), paramMap);
+		Tracker tracker = new Tracker(list.get("tracker_id").toString(), Long.parseLong(list.get("tracker_starttime").toString()),list.get("user_name").toString(),list.get("tracker_status").toString(),list.get("tracker_message").toString(),Long.parseLong(list.get("tracker_elapsedTime").toString()));
+		
+		paramMap.addValue("ELAPSED_TIME", tracker.getmElapsedTime());
+
+		namedParameterJdbcTemplate.update(queries.get("stopTrack-2"), paramMap);
+		tracker.setmStatus("Stopped");
+		return tracker;
 	}
 
 	@Override
 	public List<Tracker> userHistory(String userName, String customerName) {
-		// TODO Auto-generated method stub
-		return null;
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+		paramMap.addValue("USER_NAME", userName);
+		paramMap.addValue("CUSTOMER_NAME", customerName);
+		List<Map<String, Object>> list =namedParameterJdbcTemplate.queryForList(queries.get("userHistory"), paramMap);
+		List<Tracker> result = new ArrayList<Tracker>();
+		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+			Map<String, Object> map = (Map<String, Object>) iterator.next();
+			Tracker tracker = new Tracker(map.get("tracker_id").toString(), Long.parseLong(map.get("tracker_starttime").toString()),map.get("user_name").toString(),map.get("tracker_status").toString(),map.get("tracker_message").toString(),Long.parseLong(map.get("tracker_elapsedTime").toString()));
+			result.add(tracker);
+		}
+		return result;
 	}
 
 	@Override
@@ -98,7 +146,7 @@ public class SqliteStorageImpl implements ITrackerStorage, InitializingBean {
 		MapSqlParameterSource paramMap = new MapSqlParameterSource();
 		paramMap.addValue("TRACKER_ID", trackingId);
 		Map<String, Object> list =namedParameterJdbcTemplate.queryForMap(queries.get("selectStatus"), paramMap);
-		 Tracker tracker = new Tracker(list.get("tracker_id").toString(), Long.parseLong(list.get("tracker_starttime").toString()),list.get("user_name").toString(),list.get("tracker_status").toString(),list.get("tracker_message").toString(),Long.parseLong(list.get("tracker_elapsedTime").toString()));
+		Tracker tracker = new Tracker(list.get("tracker_id").toString(), Long.parseLong(list.get("tracker_starttime").toString()),list.get("user_name").toString(),list.get("tracker_status").toString(),list.get("tracker_message").toString(),Long.parseLong(list.get("tracker_elapsedTime").toString()));
 		return tracker;
 	}
 
