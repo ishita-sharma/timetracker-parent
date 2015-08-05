@@ -1,5 +1,13 @@
 Manifest-Version: 1.0
+Implementation-Title: timetracker-web Maven Webapp
+Implementation-Version: 1.0.0-SNAPSHOT
 Built-By: mmsharma
+TT-BuildNumber: 1
+TT-RepositoryNumber: 
+Specification-Title: timetracker-web Maven Webapp
+Implementation-Vendor-Id: de.ishitasharma.timetracker
+TT-BuildTime: 
 Build-Jdk: 1.8.0_45
+Specification-Version: 1.0.0-SNAPSHOT
 Created-By: Maven Integration for Eclipse
 
