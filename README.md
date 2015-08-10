@@ -7,8 +7,11 @@ Restful Web Service for time tracking
 
 Steps for deployment:
  - Check out maven modules directly from SCM
+ - Create SQLite Database as described by the schema the .sql file
+ - Put the appropriate database path + name in timetracker-storage-context.xml
  - Build > 'mvn clean package' on the parent directly
  - Use the WAR in "-web" module to deploy to tomcat.
+ 
  
 Steps for testing/executing:
   - Create Customer:
