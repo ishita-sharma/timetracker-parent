@@ -163,7 +163,10 @@ public class SqliteStorageImpl implements ITrackerStorage, InitializingBean {
 		paramMap.addValue("TRACKER_MESSAGE", tracker.getmMessage());
 		paramMap.addValue("TRACKER_ELAPSEDTIME", 0);
 
-		namedParameterJdbcTemplate.update(queries.get("startTrack"), paramMap);
+		if(namedParameterJdbcTemplate.update(queries.get("startTrack"), paramMap) ==0){
+			
+			tracker = null;
+			}
 		return tracker;
 	}
 

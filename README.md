@@ -4,6 +4,8 @@ Restful Web Service for time tracking
 --------------------------------------
 --------------------------------------
 ***Technologies used: Maven, Spring, JDBC***
+ 
+Also I am developing a UI to access the functionalities of this web service. You can check that out at : https://github.com/ishita-sharma/timetracker-UI 
 
 Steps for deployment:
  - Check out maven modules directly from SCM

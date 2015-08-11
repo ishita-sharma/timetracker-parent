@@ -14,11 +14,11 @@ public class Tracker implements Comparable<Object>{
 	private String mMessage;
 	@JsonProperty("UserName")
 	private String mUserName;
-	@JsonProperty("Start Time")
+	@JsonProperty("StartTime")
 	private long mStartTime;
 	@JsonProperty("TrackingId")
 	private String mTrackingId;
-	@JsonProperty("Elapsed Time")
+	@JsonProperty("ElapsedTime")
 	private long mElapsedTime;
 	//TODO create enum
 	@JsonProperty("Status")
