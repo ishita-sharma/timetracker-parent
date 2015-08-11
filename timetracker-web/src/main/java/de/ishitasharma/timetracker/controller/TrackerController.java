@@ -14,7 +14,7 @@ import de.ishitasharma.timetracker.service.ITrackerService;
 
 @Controller
 @RequestMapping("/track")
-public class TrackerController {
+public class TrackerController extends AController {
 
 	@Inject
 	private ITrackerService trackerService;  //how many times a new object of this class be created? 
@@ -23,15 +23,18 @@ public class TrackerController {
 	@RequestMapping(value = "/create/customer", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public String createCustomer(
-			@RequestParam(value = "customerName", required = true) String customerName) {
-		return trackerService.createCustomer(customerName);
+			@RequestParam(value = "customerName", required = true) String customerName, 
+			@RequestParam(value = "callback", required = false) String callback){
+		return jsonResponse(trackerService.createCustomer(customerName),callback);
 	}
 	
 	@RequestMapping(value = "/create/user", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public String createUser(
-			@RequestParam(value = "customerName", required = true) String customerName,@RequestParam(value = "userName", required = true) String userName) {
-		return trackerService.createUser(userName,customerName);
+			@RequestParam(value = "customerName", required = true) String customerName,
+			@RequestParam(value = "userName", required = true) String userName,
+			@RequestParam(value = "callback", required = false) String callback) {
+		return jsonResponse(trackerService.createUser(userName,customerName),callback);
 	}
 
 	@RequestMapping(value = "/start", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -39,26 +42,31 @@ public class TrackerController {
 	public String startTrack(
 			@RequestParam(value = "message", defaultValue = "ok") String message,
 			@RequestParam(value = "userName", required = true) String userName,
-			@RequestParam(value = "customerName", required = true) String customerName) {
-		return trackerService.startTrack(message, userName, customerName).toString();
+			@RequestParam(value = "customerName", required = true) String customerName,
+			@RequestParam(value = "callback", required = false) String callback) {
+		return jsonResponse(trackerService.startTrack(message, userName, customerName),callback);
 	}
 
 	@RequestMapping(value = "/status", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public String status(@RequestParam(required = true) String trackingId) {
-		return trackerService.status(trackingId).toString();
+	public String status(
+			@RequestParam(required = true) String trackingId,
+   		 	@RequestParam(value = "callback", required = false) String callback) {
+		return jsonResponse(trackerService.status(trackingId),callback);
 	}
 
 	@RequestMapping(value = "/user/history", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public String userHistory(@RequestParam(required = true) String userName,
-			@RequestParam(required = true) String customerName) {
-		return trackerService.userHistory(userName, customerName).toString();
+			@RequestParam(required = true) String customerName,
+			@RequestParam(value = "callback", required = false) String callback) {
+		return jsonResponse(trackerService.userHistory(userName, customerName),callback);
 	}
 
 	@RequestMapping(value = "/stop", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public String stopTrack(@RequestParam(required = true) String trackingId) {
-		return trackerService.stopTrack(trackingId).toString();
+	public String stopTrack(@RequestParam(required = true) String trackingId,
+			@RequestParam(value = "callback", required = false) String callback) {
+		return jsonResponse(trackerService.stopTrack(trackingId),callback);
 	}
 }
