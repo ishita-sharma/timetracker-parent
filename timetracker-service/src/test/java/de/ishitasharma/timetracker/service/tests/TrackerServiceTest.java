@@ -12,8 +12,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import de.ishitasharma.timetracker.service.TrackerService;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContext.class, WebApplicationContext.class}, locations = "classpath:timetracker-service-context.xml")
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(classes = {TestContext.class, WebApplicationContext.class}, locations = "classpath:timetracker-service-context.xml")
 @WebAppConfiguration
 public class TrackerServiceTest {
 	private MockMvc mockMvc;
