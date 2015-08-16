@@ -53,6 +53,7 @@ public class TrackerServiceTest {
 		Assert.assertTrue(storage.createUser("", "testcustomer").startsWith("invalid u"));
 	}
 	
+	@Test
 	public void createUser(){
 		Assert.assertTrue(storage.createUser("user1", "testcustomer").equals("success"));
 	}
