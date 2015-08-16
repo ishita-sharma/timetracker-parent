@@ -6,11 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * @author Ishita Sharma
+ * Response to HealthController
+ */
 @JsonAutoDetect(fieldVisibility = Visibility.ANY, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE)
 public class Health {
 
-//	jackson pojo json response rest
-	
 	@JsonProperty("STATUS")
 	private String mStatus;
 	@JsonProperty("MESSAGE")

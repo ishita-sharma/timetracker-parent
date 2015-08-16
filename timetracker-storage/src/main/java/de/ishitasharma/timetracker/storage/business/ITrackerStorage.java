@@ -18,4 +18,6 @@ public interface ITrackerStorage {
 
 	String createUser(String userName, String customerName);
 
+	void clear();
+
 }
