@@ -5,6 +5,10 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * @author Ishita Sharma
+ * Response which contains time tracking information
+ */
 public class TrackerResponse {
 
 	@JsonProperty("Error")

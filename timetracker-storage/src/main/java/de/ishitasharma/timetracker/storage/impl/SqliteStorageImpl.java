@@ -1,10 +1,5 @@
 package de.ishitasharma.timetracker.storage.impl;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,7 +9,6 @@ import java.util.Map;
 import javax.inject.Named;
 import javax.sql.DataSource;
 
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -176,5 +170,11 @@ public class SqliteStorageImpl implements ITrackerStorage, InitializingBean {
 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
 	}
 }

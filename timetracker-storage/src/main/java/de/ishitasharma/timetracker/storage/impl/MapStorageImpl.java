@@ -27,6 +27,9 @@ public class MapStorageImpl implements ITrackerStorage {
 	
 	@Override
 	public String createCustomer(String customerName) {
+		if(customerName==null || customerName.equals(""))
+			return "invalid customername";
+		
 		customerInfo.put(customerName.hashCode(),
 				new TreeMap<Integer, TreeSet<Object>>());
 		return "success";
@@ -34,8 +37,15 @@ public class MapStorageImpl implements ITrackerStorage {
 
 	@Override
 	public String createUser(String userName, String customerName) {
-		customerInfo.get(customerName.hashCode()).put(userName.hashCode(),
-				ts);		
+		if(customerInfo.containsKey(customerName.hashCode()))
+				customerInfo.get(customerName.hashCode()).put(userName.hashCode(),
+				ts);	
+		else
+			return "customer does not exist";
+		
+		if(userName == null || userName.equals(""))
+			return "invalid username";
+		
 		return "success";
 	}
 	
@@ -76,6 +86,12 @@ public class MapStorageImpl implements ITrackerStorage {
 		Tracker tracker = trackingInfo.get(trackingId);//get model
 		tracker.stop();//update model and persist
 		return tracker;
+	}
+
+	@Override
+	public void clear() {
+		customerInfo.clear();
+		trackingInfo.clear();
 	}
 
 }
