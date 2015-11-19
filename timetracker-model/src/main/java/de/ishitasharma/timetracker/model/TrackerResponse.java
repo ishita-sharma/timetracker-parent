@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class TrackerResponse {
 
-	@JsonProperty("Error")
-	private String errors;
+	@JsonProperty("Errors")
+	private List<String> errors = new ArrayList<String>();
 	
 	@JsonProperty("StatusCode")
 	private int statusCode;
@@ -26,12 +26,18 @@ public class TrackerResponse {
 	@JsonProperty("trackers")
 	private List<Tracker> trackers = new ArrayList<Tracker>();
 
-	public String getErrors() {
+
+
+	public List<String> getErrors() {
 		return errors;
 	}
 
-	public void setErrors(String errors) {
+	public void setErrors(List<String> errors) {
 		this.errors = errors;
+	}
+
+	public void addErrors(String error) {
+		this.errors.add(error);
 	}
 
 	public int getStatusCode() {

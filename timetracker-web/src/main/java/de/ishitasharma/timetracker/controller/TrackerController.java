@@ -2,14 +2,29 @@ package de.ishitasharma.timetracker.controller;
 
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
+import de.ishitasharma.timetracker.model.Customer;
+import de.ishitasharma.timetracker.model.TrackerResponse;
 import de.ishitasharma.timetracker.service.ITrackerService;
 
 @Controller
@@ -23,10 +38,26 @@ public class TrackerController extends AController {
 	@RequestMapping(value = "/create/customer", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public String createCustomer(
-			@RequestParam(value = "customerName", required = true) String customerName, 
+			@RequestParam(value = "customerName", required = true) Customer customerName, 
 			@RequestParam(value = "callback", required = false) String callback){
-		return jsonResponse(trackerService.createCustomer(customerName),callback);
+		return jsonResponse(trackerService.createCustomer(customerName.getCustomername()),callback);
 	}
+	
+	@RequestMapping(value = "/get/customer", method = { RequestMethod.POST }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ResponseBody
+	public String getCustomer(@Validated @RequestBody Customer customer) {
+		return jsonResponse(trackerService.createCustomer(customer.getCustomername()),"");
+	}
+	
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ResponseBody
+	public TrackerResponse catchEx(MethodArgumentNotValidException ex, HttpServletRequest req){
+		TrackerResponse trackerResponse = new TrackerResponse();
+		trackerResponse.addErrors(ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+		return trackerResponse;
+	}
+	
 	
 	@RequestMapping(value = "/create/user", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody

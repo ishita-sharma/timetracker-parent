@@ -31,7 +31,7 @@ public abstract class AController {
 		TrackerResponse trackerResponse = new TrackerResponse();
 		try{
 			if(tracker == null){
-				trackerResponse.setErrors("Timer could not be started");
+				trackerResponse.addErrors("Timer could not be started");
 				trackerResponse.setStatusCode(400);
 			}else{
 				trackerResponse.addTrackers(tracker);
