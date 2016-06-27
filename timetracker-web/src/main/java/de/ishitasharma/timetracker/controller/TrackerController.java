@@ -38,17 +38,10 @@ public class TrackerController extends AController {
 	@RequestMapping(value = "/create/customer", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public String createCustomer(
-			@RequestParam(value = "customerName", required = true) Customer customerName, 
+			@RequestParam(value = "customerName", required = true) String customerName, 
 			@RequestParam(value = "callback", required = false) String callback){
-		return jsonResponse(trackerService.createCustomer(customerName.getCustomername()),callback);
+		return jsonResponse(trackerService.createCustomer(customerName),callback);
 	}
-	
-	@RequestMapping(value = "/get/customer", method = { RequestMethod.POST }, produces = { MediaType.APPLICATION_JSON_VALUE })
-	@ResponseBody
-	public String getCustomer(@Validated @RequestBody Customer customer) {
-		return jsonResponse(trackerService.createCustomer(customer.getCustomername()),"");
-	}
-	
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseBody

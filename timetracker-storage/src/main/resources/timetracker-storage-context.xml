@@ -7,19 +7,18 @@
   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
   http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.2.xsd">
-  
-  <annotation-driven/>
-  <view-controller path="/"/>
-  <default-servlet-handler/>
-  <context:component-scan base-package="de.ishitasharma.timetracker.storage"></context:component-scan>
-  
-  <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
-        destroy-method="close" lazy-init="true">
-    <beans:property name="driverClassName" value="org.sqlite.JDBC" />
-    <beans:property name="url" value="jdbc:sqlite:sqlite/timetracker-storage" />
-    <beans:property name="maxActive" value="20" />
-    <beans:property name="maxIdle" value="5" />
-    <beans:property name="poolPreparedStatements" value="true" />
- </beans:bean>
 
+	<annotation-driven />
+	<view-controller path="/" />
+	<default-servlet-handler />
+	<context:component-scan base-package="de.ishitasharma.timetracker.storage"></context:component-scan>
+
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" lazy-init="true">
+		<beans:property name="driverClassName" value="${db.driver}" />
+		<beans:property name="url" value="${db.url}" />
+		<beans:property name="maxActive" value="1" />
+		<beans:property name="maxIdle" value="1" />
+		<beans:property name="poolPreparedStatements" value="true" />
+	</beans:bean>
 </beans:beans>

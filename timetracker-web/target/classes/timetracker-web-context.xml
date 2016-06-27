@@ -14,4 +14,8 @@
 	<beans:import resource="classpath:timetracker-storage-context.xml" />
 	<beans:import resource="classpath:timetracker-service-context.xml" />
 	<context:component-scan base-package="de.ishitasharma.timetracker"></context:component-scan>
+
+	<context:property-placeholder
+		file-encoding="UTF-8" location="classpath:application.properties"
+		system-properties-mode="OVERRIDE" ignore-unresolvable="false" />
 </beans:beans>
