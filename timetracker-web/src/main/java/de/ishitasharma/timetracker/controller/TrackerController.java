@@ -32,8 +32,7 @@ import de.ishitasharma.timetracker.service.ITrackerService;
 public class TrackerController extends AController {
 
 	@Inject
-	private ITrackerService trackerService;  //how many times a new object of this class be created? 
-											 //every time a request is sent?
+	private ITrackerService trackerService;  
 
 	@RequestMapping(value = "/create/customer", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
