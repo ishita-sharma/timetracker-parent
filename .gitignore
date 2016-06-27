@@ -1,8 +1,17 @@
 
+# Eclipse
 .project
 
-.settings
+.settings/
 
 .classpath
 
 .class
+
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
