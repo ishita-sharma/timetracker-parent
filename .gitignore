@@ -1,10 +1,17 @@
 
-timetracker-model/.project
-
+# Eclipse
 .project
 
-timtracker-model/.project
+.settings/
 
-timtracker-model/.project
+.classpath
 
-.settings
+.class
+
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
