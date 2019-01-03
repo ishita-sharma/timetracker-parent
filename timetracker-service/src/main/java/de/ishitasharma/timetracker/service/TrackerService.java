@@ -14,7 +14,7 @@ import de.ishitasharma.timetracker.storage.business.ITrackerStorage;
 public class TrackerService implements ITrackerService{
 	
 	@Inject			
-	@Qualifier("tracker-sqlite-storage")
+	@Qualifier("tracker-map-storage")
 	private ITrackerStorage trackerStorage;
 	
 	@Override
